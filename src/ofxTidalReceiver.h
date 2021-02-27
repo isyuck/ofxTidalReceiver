@@ -15,13 +15,14 @@ public:
   template <typename T> T get(const std::string &name);
 
 private:
-  // find a value with name, replace it's value with value
+  // find a value using it's name, and return a pointer to it
   template <typename T>
-  void updateValue(const std::string &name, const T value);
+  ofxTidalValue_t<T> *getValueByName(const std::string &name);
 
+  // store all of the values
+  std::vector<ofxTidalValue *> values;
   ofxOscReceiver osc;
   std::string path;
-  std::vector<ofxTidalValue *> values;
 };
 
 // templated methods have to live in .h
@@ -32,26 +33,18 @@ void ofxTidalReceiver::add(const std::string &name, const T &value) {
 }
 
 template <typename T> T ofxTidalReceiver::get(const std::string &name) {
-  for (const auto &v : values) {
-    if (name == v->getName()) {
-      ofxTidalValue *tb = v;
-      ofxTidalValue_t<T> *td = nullptr;
-      td = dynamic_cast<ofxTidalValue_t<T> *>(tb);
-      return td->getValue();
-    }
-  }
-  return NULL;
+  return getValueByName<T>(name)->getValue();
 }
 
 template <typename T>
-void ofxTidalReceiver::updateValue(const std::string &name, const T value) {
+ofxTidalValue_t<T> *ofxTidalReceiver::getValueByName(const std::string &name) {
   for (const auto &v : values) {
     if (name == v->getName()) {
-      ofxTidalValue *tb = v;
-      ofxTidalValue_t<T> *td = nullptr;
+      ofxTidalValue *tb = v;            // t base
+      ofxTidalValue_t<T> *td = nullptr; // t derived
       td = dynamic_cast<ofxTidalValue_t<T> *>(tb);
-      td->setValue(value);
-      return;
+      return td;
     }
   }
+  return NULL;
 }
