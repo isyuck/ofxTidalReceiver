@@ -8,7 +8,7 @@ public:
   bool setup(const int &port);
   bool setup(const int &port, const std::string &path);
   // check for new messages
-  bool update();
+  void update();
   // add a new value with name & default
   template <typename T> void add(const std::string &name, const T &value);
   // get a value by it's name

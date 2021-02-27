@@ -11,7 +11,7 @@ bool ofxTidalReceiver::setup(const int &port = 7788,
   return listening;
 }
 
-bool ofxTidalReceiver::update() {
+void ofxTidalReceiver::update() {
   while (osc.hasWaitingMessages()) {
     ofxOscMessage msg;
     osc.getNextMessage(&msg);
@@ -28,12 +28,8 @@ bool ofxTidalReceiver::update() {
         case 'f':
           updateValue(name, msg.getArgAsFloat(i + 1));
           break;
-        case 's':
-          updateValue(name, msg.getArgAsString(i + 1));
-          break;
         }
       }
     }
   }
-  return true;
 }
