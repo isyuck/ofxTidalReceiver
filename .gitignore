@@ -6,6 +6,9 @@
 */bin/*
 !*/bin/data/
 
+example/bin/*
+example/config.make
+
 #########
 # general
 #########
