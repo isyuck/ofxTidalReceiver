@@ -9,6 +9,8 @@
 example/bin/*
 example/config.make
 
+compile_commands.json
+
 #########
 # general
 #########
