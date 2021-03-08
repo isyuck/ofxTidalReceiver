@@ -18,6 +18,7 @@ Project{
         ]
 
         of.addons: [
+            'ofxTidalReceiver',
         ]
 
         // additional flags for the project. the of module sets some
